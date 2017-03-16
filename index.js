@@ -12,7 +12,7 @@ async function main() {
   console.log('### Skygear IoT Client ###');
   console.log(`Skygear Endpoint: ${endPoint}`);
   console.log(`Skygear User: ${username}`);
-  process.stdout.write('Initializing... ');
+  console.log('Initializing... ');
   await skygear.config({endPoint, apiKey});
   await skygear.loginWithUsername(username, password);
   console.log('Done!');
