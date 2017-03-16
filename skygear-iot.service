@@ -1,0 +1,13 @@
+[Unit]
+Description=Skygear IoT Client
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/npm start
+Restart=always
+RestartSec=10
+User=pi
+WorkingDirectory=/home/pi/skygear-iot
+
+[Install]
+WantedBy=multi-user.target
