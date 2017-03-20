@@ -55,7 +55,20 @@ If you wish to connect your RaspberryPi to the network via WiFi, you can do it n
 [this guide][pi-wifi].
 
 Edit the Skygear credentials file `/home/pi/skygear-iot/config.json` using your favourite editor
-and fill in the required fields. The system already has `nano` and `vim` installed.
+and fill in the required fields. The system already has `nano` and `vim` installed. You should
+end up with something that looks like this:
+
+```
+{
+  "skygear": {
+    "apiKey": "734b1f4efd4c4a73a98a6d9a94cd3c55",
+    "endPoint": "https://xxxxx.skygeario.com/",
+    "deviceId": null,
+    "password": null
+  }
+}
+
+```
 
 TODO: explain Skygear Cloud / client config here?
 
@@ -65,40 +78,73 @@ application log using `sudo journalctl -u skygear-iot.service` or follow the log
 the `-f` switch.
 
 ```
-Mar 16 11:24:22 raspberrypi systemd[1]: Starting Skygear IoT Client...
-Mar 16 11:24:22 raspberrypi systemd[1]: Started Skygear IoT Client.
-Mar 16 11:24:26 raspberrypi npm[4262]: > skygear-iot@1.0.0 start /home/pi/skygear-iot
-Mar 16 11:24:26 raspberrypi npm[4262]: > node --harmony-async-await index.js
-Mar 16 11:24:28 raspberrypi npm[4262]: ### Skygear IoT Client ###
-Mar 16 11:24:28 raspberrypi npm[4262]: Skygear Endpoint: https://xxxxx.skygeario.com/
-Mar 16 11:24:28 raspberrypi npm[4262]: Skygear User: xxxxxxxx
-Mar 16 11:24:30 raspberrypi npm[4262]: Initializing... Done!
+Mar 20 09:55:46 raspberrypi systemd[1]: Starting Skygear IoT Client...
+Mar 20 09:55:46 raspberrypi systemd[1]: Started Skygear IoT Client.
+Mar 20 09:55:52 raspberrypi npm[1501]: Running Skygear IoT Setup...
+Mar 20 09:55:52 raspberrypi npm[1501]: Skygear IoT Version: 2.0.1
+Mar 20 09:55:52 raspberrypi npm[1501]: Device ID: BCM2709-a22082-00000000cda1d830-1490003752071
+Mar 20 09:55:52 raspberrypi npm[1501]: Skygear Endpoint: https://xxxxx.skygeario.com/
+Mar 20 09:55:52 raspberrypi npm[1501]: Registering Device...
+Mar 20 09:55:54 raspberrypi npm[1501]: Done!
+Mar 20 09:55:54 raspberrypi npm[1501]: Writing Config...
+Mar 20 09:55:54 raspberrypi npm[1501]: Setup Complete!
+Mar 20 09:56:04 raspberrypi systemd[1]: skygear-iot.service holdoff time over, scheduling restart.
+Mar 20 09:56:04 raspberrypi systemd[1]: Stopping Skygear IoT Client...
+Mar 20 09:56:04 raspberrypi systemd[1]: Starting Skygear IoT Client...
+Mar 20 09:56:04 raspberrypi systemd[1]: Started Skygear IoT Client.
+Mar 20 09:56:10 raspberrypi npm[1524]: ### Skygear IoT Client ###
+Mar 20 09:56:10 raspberrypi npm[1524]: Skygear IoT Version: 2.0.1
+Mar 20 09:56:10 raspberrypi npm[1524]: Device ID: BCM2709-a22082-00000000cda1d830-1490003752071
+Mar 20 09:56:10 raspberrypi npm[1524]: Skygear Endpoint: https://xxxxx.skygeario.com/
+Mar 20 09:56:10 raspberrypi npm[1524]: Initializing...
+Mar 20 09:56:12 raspberrypi npm[1524]: Done!
+Mar 20 09:56:12 raspberrypi npm[1524]: Loading User Application...
+Mar 20 09:56:12 raspberrypi npm[1524]: { Error: Cannot find module '../user-app/package.json'
+Mar 20 09:56:12 raspberrypi npm[1524]: at Function.Module._resolveFilename (module.js:470:15)
+Mar 20 09:56:12 raspberrypi npm[1524]: at Function.Module._load (module.js:418:25)
+Mar 20 09:56:12 raspberrypi npm[1524]: at Module.require (module.js:498:17)
+Mar 20 09:56:12 raspberrypi npm[1524]: at require (internal/module.js:20:19)
+Mar 20 09:56:12 raspberrypi npm[1524]: at main (/home/pi/skygear-iot/index.js:83:23)
+Mar 20 09:56:12 raspberrypi npm[1524]: at process._tickCallback (internal/process/next_tick.js:109:7) code: 'MODULE_NOT_FOUND' }
+Mar 20 09:56:12 raspberrypi npm[1524]: Falling back to default application...
+Mar 20 09:56:12 raspberrypi npm[1524]: Listening for ping events...
+
 ```
 
-After your app is running, you should be able to test it by publishing a `ping` event to the
-skygear server. We've written a small program just for this, in the `/home/pi/skygear-iot`
-directory, run `npm test` and you should get an output like the following if everything is working
-correctly.
+The Skygear IoT client will first run an initial setup to generate a device ID and register
+this device on the server. After that, it will restart and try to run the user application
+normally. In this case, it will fail (because it doesn't exist) and run the built-in demo
+ping-pong demo app instead.
+
+When the demo ping-pong app is running, you should be able to test it by publishing a
+`ping` event to the skygear server.
+We've written a test program for this, in the `/home/pi/skygear-iot` directory, run
+`npm test` and you should get an output like the following if everything is working correctly.
 
 ```
-> skygear-iot@1.0.0 test /home/pi/skygear-iot
-> node --harmony-async-await test.js
-
 ### Skygear IoT Ping Test ###
-Skygear Endpoint: https://xxxxxx.skygeario.com/
-Skygear User: xxxxx
-Initializing... Done!
+Skygear IoT Version: 2.0.1
+Skygear Endpoint: https://akiroz.skygeario.com/
+Device ID: BCM2709-a22082-00000000cda1d830-1490003752071
+Initializing... 
+Done!
 Sending ping...
-[pong] b8:27:eb:a1:d8:30
+[pong] BCM2709-a22082-00000000cda1d830-1490003752071
 ```
+
 
 # What's Next?
 
 At this point, you already have an IoT device that responds to Skygear `ping` events.
 
-Try implementing your own application in `/home/pi/skygear-iot/index.js`!
-You can reload the application after editing your code using `sudo systemctl restart skygear-iot`.
-See how to use the Skygear JS SDK [here][skygear-doc].
+Follow the [Skygear IoT tutorial][skygear-tutorial] to learn how to
+
+- Create a user application on the device
+- Save data to your Skygear server
+- Write cloud functions to implement custom server-side logic
+- Send push notifications to mobile devices
+
+Or read the docs for [Skygear JS SDK here][skygear-doc].
 
 # Production Considerations
 
@@ -106,31 +152,26 @@ See how to use the Skygear JS SDK [here][skygear-doc].
 
 After setting up the device, you could either
 
-1. Disable remote login access by running:
+1. Change the password for `root` and `pi`
+```
+$ sudo passwd pi
+$ sudo passwd
+```
+
+2. Disable remote login access by running:
+
+**DO NOT DO THIS, OTA UPDATE NOT IMPLEMENTED YET!!**
+
 ```
 $ sudo systemctl disable ssh
 $ sudo reboot
 ```
 Firmware updates can be performed via Skygear IoT.
 
-2. Change the password for `root` and `pi`
-```
-$ sudo passwd pi
-$ sudo passwd
-```
 
-## Batch Device Setup
-
-You could skip the setup phase by building your own customized Skygear Raspbian SD card
-image with your Skygear (and WiFi) credentials included.
-
-The image we provide was built using our fork of the `pi-gen` build tool
-available [here][skygear-pi-gen], you could simply fork this repo make your changes.
-
-TODO: explain how
-
-[skygear-raspbian]: 
-[skygear-pi-gen]: 
+[skygear-raspbian]: http://example.com
+[skygear-pi-gen]: http://example.com
+[skygear-tutorial]: http://example.com
 [skygear-doc]: https://docs.skygear.io/
 [sd-linux]: https://www.raspberrypi.org/documentation/installation/installing-images/linux.md
 [sd-mac]: https://www.raspberrypi.org/documentation/installation/installing-images/mac.md
