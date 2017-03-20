@@ -1,13 +1,12 @@
 {
   "name": "skygear-iot",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "license": "Apache-2.0",
   "scripts": {
     "start": "node --harmony-async-await index.js",
-    "test": "node --harmony-async-await test.js"
+    "test": "node --harmony-async-await ping/test.js"
   },
   "dependencies": {
-    "getmac": "^1.2.1",
     "skygear": "^0.22.1"
   }
 }

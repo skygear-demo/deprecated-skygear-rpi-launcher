@@ -3,7 +3,7 @@ Description=Skygear IoT Client
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/npm start
+ExecStart=/usr/bin/npm start --loglevel=silent
 Restart=always
 RestartSec=10
 User=pi
