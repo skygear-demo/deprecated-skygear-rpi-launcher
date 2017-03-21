@@ -80,9 +80,9 @@ async function main() {
   console.log('Done!');
   try {
     console.log(`Loading User Application...`);
-    const {version} = require('../user-app/package.json');
+    const {version} = require('./user-app/package.json');
     console.log(`Application Version: ${version}`);
-    return require('../user-app');
+    return require('./user-app');
   } catch(err) {
     console.error(err);
     console.log('Falling back to default application...');
