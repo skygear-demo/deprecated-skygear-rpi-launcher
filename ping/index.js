@@ -1,4 +1,5 @@
 const skygear = require('skygear');
+const skygearIot = require('../skygear-iot.js');
 
 const {
   skygear: {
@@ -6,20 +7,10 @@ const {
   }
 } = require('../config.json');
 
-function onEvent(event) {
-  return new Promise(resolve => {
-    function handler(data) {
-      skygear.off(event, handler);
-      resolve(data);
-    }
-    skygear.on(event, handler);
-  });
-}
-
 async function main() {
   console.log('Listening for ping events...');
   while(true) {
-    let pingData = await onEvent('ping');
+    let pingData = await skygearIot.pubsub.one('ping');
     console.log(`[ping] ${pingData}`);
     skygear.pubsub.publish('pong', deviceId);
   }
