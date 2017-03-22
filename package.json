@@ -3,8 +3,7 @@
   "version": "2.0.1",
   "license": "Apache-2.0",
   "scripts": {
-    "start": "node --harmony-async-await index.js",
-    "test": "node --harmony-async-await ping/test.js"
+    "start": "node --harmony-async-await index.js"
   },
   "dependencies": {
     "skygear": "^0.22.1"

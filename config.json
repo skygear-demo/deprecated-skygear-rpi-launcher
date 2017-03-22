@@ -1,8 +1,6 @@
 {
   "skygear": {
     "apiKey": "",
-    "endPoint": "",
-    "deviceId": null,
-    "password": null
+    "endPoint": ""
   }
 }
