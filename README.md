@@ -54,6 +54,8 @@ and enter the password `raspberry`. Replace the IP address with the one you foun
 If you wish to connect your RaspberryPi to the network via WiFi, you can do it now by following
 [this guide][pi-wifi].
 
+Before editing the Skygear credentials, you have to sign up at [Skygear Portal][skygear-portal] can get your server endpoints and the API keys in the info page in your developer portal after signing up for the [Skygear Cloud Services][skygear-portal-signup].
+
 Edit the Skygear credentials file `/home/pi/skygear-iot/config.json` using your favourite editor
 and fill in the required fields. The system already has `nano` and `vim` installed. You should
 end up with something that looks like this:
@@ -169,7 +171,7 @@ $ sudo reboot
 Firmware updates can be performed via Skygear IoT.
 
 
-[skygear-raspbian]: http://example.com
+[skygear-raspbian]: https://github.com/akiroz/pi-gen-skygear/releases/download/2017-03-21-Raspbian-Skygear-IoT/image_2017-03-21-Raspbian-Skygear-IoT.zip
 [skygear-pi-gen]: http://example.com
 [skygear-tutorial]: http://example.com
 [skygear-doc]: https://docs.skygear.io/
@@ -177,3 +179,5 @@ Firmware updates can be performed via Skygear IoT.
 [sd-mac]: https://www.raspberrypi.org/documentation/installation/installing-images/mac.md
 [sd-windows]: https://www.raspberrypi.org/documentation/installation/installing-images/windows.md
 [pi-wifi]: https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md
+[skygear-portal]: https://portal.skygear.io/apps
+[skygear-portal-signup]: https://portal.skygear.io/
