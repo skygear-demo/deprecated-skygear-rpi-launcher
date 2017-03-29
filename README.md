@@ -11,18 +11,18 @@ write it to a SD card by following the instructions for your respective platform
 - [Mac OS][sd-mac]
 - [Windows][sd-windows]
 
-## 2. Access
+## 2. Access (2 options)
 
-Put the SD card in your RaspberryPi and power it up, there are several
+Put the SD card in your RaspberryPi and power it up, there are 2
 ways of which you could access your device:
 
-### Physical Console
+### Option 1: Physical Console
 
 Connect the RaspberryPi to a monitor and keyboard and you're all set!
 We've configured the system's default keyboard layout to `us`.
 Login with the user `pi` and password `raspberry`.
 
-### SSH Console (requires Ethernet)
+### Option 2: SSH Console (requires Ethernet)
 
 Connect the RaspberryPi to your network via Ethernet (Pi Zero users will need a
 USB-Ethernet adaptor). The system is configured with SSH access enabled and uses DHCP
