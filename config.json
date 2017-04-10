@@ -1,4 +1,7 @@
 {
+  "app": {
+    "version": "0.0.0"
+  },
   "skygear": {
     "apiKey": "",
     "endPoint": ""

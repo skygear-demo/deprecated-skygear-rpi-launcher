@@ -6,6 +6,7 @@
     "start": "node --harmony-async-await index.js"
   },
   "dependencies": {
-    "skygear": "^0.22.1"
+    "skygear": "^0.22.1",
+    "skygeari-iot": "../iot-SDK-JS"
   }
 }

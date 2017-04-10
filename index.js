@@ -1,44 +1,65 @@
 const fs = require('fs');
-const crypto = require('crypto');
+const cp = require('child_process');
+
 const skygear = require('skygear');
-const skygearIot = require('./skygear-iot.js');
+const skygearIoT = require('skygear-iot');
 
 const {
   skygear: {
     apiKey,
     endPoint,
+  },
+  app: {
+    version
   }
 } = require('./config.json');
 
-const {
-  version: skygearIotVersion
-} = require('./package.json');
+function getDeviceSecret() {
+  const cpu = new Map(
+    fs.readFileSync('/proc/cpuinfo', 'utf8')
+    .split('\n')
+    .map(line => {
+      const m = /(.+?)\t+: (.+)/.exec(line);
+      return m ? [m[1],m[2]] [null,null];
+    })
+  );
+  return `${cpu.get('Hardware')}-${cpu.get('Revision')}-${cpu.get('Serial')}`;
+}
+
+const platform = {
+  action: {
+    shutdown() {
+      cp.execSync('sudo shutdown now');
+    },
+    restart() {
+      cp.execSync('sudo restart');
+    },
+  },
+  deviceSecret: getDeviceSecret(),
+  appVersion: version,
+};
 
 async function main() {
-  console.log('### Skygear IoT Client ###');
-  console.log(`Skygear IoT Version: ${skygearIotVersion}`);
+  console.log('### Skygear IoT RaspberryPi Launcher ###');
   console.log(`Skygear Endpoint: ${endPoint}`);
   console.log('Initializing...');
   await skygear.config({endPoint, apiKey});
-  const deviceString = await skygearIot.getDeviceString();
-  let deviceUser = null;
   try {
-    deviceUser = await skygear.signupWithUsername(deviceString, deviceString);
-  } catch(_) {
-    deviceUser = await skygear.loginWithUsername(deviceString, deviceString);
+    await skygear.loginWithUsername(
+      platform.deviceSecret,
+      platform.deviceSecret
+    );
+  } catch() {
+    await skygear.signupWithUsername(
+      platform.deviceSecret,
+      platform.deviceSecret
+    );
   }
-  console.log(`Device ID: ${deviceUser.id}`);
-  skygearIot.deviceId = deviceUser.id;
-  try {
-    console.log(`Loading User Application...`);
-    const {version} = require('./user-app/package.json');
-    console.log(`Application Version: ${version}`);
-    return require('./user-app');
-  } catch(err) {
-    console.error(err);
-    console.log('Falling back to default application...');
-    return require('./ping/index.js');
-  }
+  await skygearIoT.initDevice(platform);
+  console.log('OK!');
+  console.log(`Device ID: ${skygearIoT.device.id}`);
+  console.log(`Application Version: ${version}`);
+  return require(`./app/${version}`);
 }
 
 if(!(endPoint && apiKey)) {

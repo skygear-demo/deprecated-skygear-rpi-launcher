@@ -1,12 +1,13 @@
 const skygear = require('skygear');
-const skygearIot = require('../skygear-iot.js');
+const skygearIoT = require('skygear-iot');
 
 async function main() {
+  console.log('### Skygear IoT Ping App ###');
   console.log('Listening for ping events...');
   while(true) {
-    await skygearIot.pubsub.one('ping');
+    await skygear.pubsub.once('ping');
     console.log('Recieved ping.');
-    skygear.pubsub.publish('pong', skygearIot.deviceId);
+    skygear.pubsub.publish('pong', skygearIoT.device.id);
   }
 }
 
