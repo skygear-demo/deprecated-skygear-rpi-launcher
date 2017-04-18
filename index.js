@@ -2,7 +2,7 @@ const fs = require('fs');
 const cp = require('child_process');
 
 const skygear = require('skygear');
-const skygearIoT = require('skygear-iot');
+const skygearIoT = require('skygear-iot')(skygear);
 
 const {
   skygear: {
