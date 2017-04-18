@@ -50,6 +50,7 @@ async function main() {
       platform.deviceSecret
     );
   } catch() {
+    console.log('Login failed, trying sign-up ...');
     await skygear.signupWithUsername(
       platform.deviceSecret,
       platform.deviceSecret
