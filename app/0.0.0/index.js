@@ -1,7 +1,6 @@
 const skygear = require('skygear');
-const skygearIoT = require('skygear-iot');
 
-async function main() {
+async function main(skygearIoT) {
   console.log('### Skygear IoT Ping App ###');
   console.log('Listening for ping events...');
   while(true) {
@@ -11,4 +10,4 @@ async function main() {
   }
 }
 
-module.exports = main();
+module.exports = main;

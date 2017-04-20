@@ -59,7 +59,7 @@ async function main() {
   await skygearIoT.initDevice(platform);
   console.log(`Device ID: ${skygearIoT.device.id}`);
   console.log(`Application Version: ${appVersion}`);
-  return require(`./app/${appVersion}`);
+  return require(`./app/${appVersion}`)(skygearIoT);
 }
 
 if(!(endPoint && apiKey)) {
