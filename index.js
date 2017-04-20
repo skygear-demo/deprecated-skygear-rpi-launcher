@@ -57,7 +57,6 @@ async function main() {
     );
   }
   await skygearIoT.initDevice(platform);
-  console.log('Device initialized!');
   console.log(`Device ID: ${skygearIoT.device.id}`);
   console.log(`Application Version: ${appVersion}`);
   return require(`./app/${appVersion}`);
