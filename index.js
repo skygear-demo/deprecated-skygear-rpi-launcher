@@ -10,7 +10,7 @@ const {
     endPoint,
   },
   app: {
-    version
+    version: appVersion
   }
 } = require('./config.json');
 
@@ -36,7 +36,7 @@ const platform = {
     },
   },
   deviceSecret: getDeviceSecret(),
-  appVersion: version,
+  appVersion: appVersion,
 };
 
 async function main() {
@@ -57,10 +57,10 @@ async function main() {
     );
   }
   await skygearIoT.initDevice(platform);
-  console.log('OK!');
+  console.log('Device initialized!');
   console.log(`Device ID: ${skygearIoT.device.id}`);
-  console.log(`Application Version: ${version}`);
-  return require(`./app/${version}`);
+  console.log(`Application Version: ${appVersion}`);
+  return require(`./app/${appVersion}`);
 }
 
 if(!(endPoint && apiKey)) {

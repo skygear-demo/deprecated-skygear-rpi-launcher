@@ -1,12 +1,12 @@
 {
-  "name": "skygear-iot",
-  "version": "2.0.1",
+  "name": "skygear-rpi-launcher",
+  "version": "3.0.0",
   "license": "Apache-2.0",
   "scripts": {
-    "start": "node --harmony-async-await index.js"
+    "start": "node index.js"
   },
   "dependencies": {
-    "skygear": "^0.22.1",
-    "skygeari-iot": "../iot-SDK-JS"
+    "skygear": "^0.22.2",
+    "skygear-iot": "^0.0.17"
   }
 }

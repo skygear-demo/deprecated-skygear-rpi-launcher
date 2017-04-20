@@ -1,5 +1,5 @@
 [Unit]
-Description=Skygear IoT Client
+Description=Skygear IoT Raspberry Pi Launcher
 After=network.target
 
 [Service]
@@ -7,7 +7,7 @@ ExecStart=/usr/bin/npm start --loglevel=silent
 Restart=always
 RestartSec=10
 User=pi
-WorkingDirectory=/home/pi/skygear-iot
+WorkingDirectory=/home/pi/skygear-rpi-launcher
 
 [Install]
 WantedBy=multi-user.target
