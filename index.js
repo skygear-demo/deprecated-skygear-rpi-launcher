@@ -20,7 +20,7 @@ function getDeviceSecret() {
     .split('\n')
     .map(line => {
       const m = /(.+?)\t+: (.+)/.exec(line);
-      return m ? [m[1],m[2]] [null,null];
+      return m ? [m[1],m[2]] : [null,null];
     })
   );
   return `${cpu.get('Hardware')}-${cpu.get('Revision')}-${cpu.get('Serial')}`;
@@ -49,7 +49,7 @@ async function main() {
       platform.deviceSecret,
       platform.deviceSecret
     );
-  } catch() {
+  } catch(_) {
     console.log('Login failed, trying sign-up ...');
     await skygear.signupWithUsername(
       platform.deviceSecret,
