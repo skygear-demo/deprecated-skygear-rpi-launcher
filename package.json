@@ -7,6 +7,6 @@
   },
   "dependencies": {
     "skygear": "^0.23.0",
-    "skygear-iot": "^0.0.17"
+    "skygear-iot": "^0.0.20"
   }
 }

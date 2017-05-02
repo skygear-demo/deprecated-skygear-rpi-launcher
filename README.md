@@ -56,23 +56,22 @@ If you wish to connect your RaspberryPi to the network via WiFi, you can do it n
 
 Before editing the Skygear credentials, you have to sign up at [Skygear Portal][skygear-portal] can get your server endpoints and the API keys in the info page in your developer portal after signing up for the [Skygear Cloud Services][skygear-portal-signup].
 
-Edit the Skygear credentials file `/home/pi/skygear-iot/config.json` using your favourite editor
-and fill in the required fields. The system already has `nano` and `vim` installed. You should
-end up with something that looks like this:
+Edit the Skygear credentials file `/home/pi/skygear-rpi-launcher/config.json` using your
+favourite editor and fill in the required fields. The system already has `nano` and `vim`
+installed. You should end up with something that looks like this:
 
 ```
 {
+  "app": {
+    "version": "0.0.0"
+  },  
   "skygear": {
-    "apiKey": "734b1f4efd4c4a73a98a6d9a94cd3c55",
-    "endPoint": "https://xxxxx.skygeario.com/",
-    "deviceId": null,
-    "password": null
+    "apiKey": "734b1f4efd4c4a73a98a6d9a94cd3c55", 
+    "endPoint": "https://xxxxx.skygeario.com/"
   }
 }
 
 ```
-
-TODO: explain Skygear Cloud / client config here?
 
 The system is configured to (re)start the client application upon failure every 10 seconds,
 it should start automatically after you've saved a valid configuration. You can view the
@@ -80,60 +79,14 @@ application log using `sudo journalctl -u skygear-iot.service` or follow the log
 the `-f` switch.
 
 ```
-Mar 20 09:55:46 raspberrypi systemd[1]: Starting Skygear IoT Client...
-Mar 20 09:55:46 raspberrypi systemd[1]: Started Skygear IoT Client.
-Mar 20 09:55:52 raspberrypi npm[1501]: Running Skygear IoT Setup...
-Mar 20 09:55:52 raspberrypi npm[1501]: Skygear IoT Version: 2.0.1
-Mar 20 09:55:52 raspberrypi npm[1501]: Device ID: BCM2709-a22082-00000000cda1d830-1490003752071
-Mar 20 09:55:52 raspberrypi npm[1501]: Skygear Endpoint: https://xxxxx.skygeario.com/
-Mar 20 09:55:52 raspberrypi npm[1501]: Registering Device...
-Mar 20 09:55:54 raspberrypi npm[1501]: Done!
-Mar 20 09:55:54 raspberrypi npm[1501]: Writing Config...
-Mar 20 09:55:54 raspberrypi npm[1501]: Setup Complete!
-Mar 20 09:56:04 raspberrypi systemd[1]: skygear-iot.service holdoff time over, scheduling restart.
-Mar 20 09:56:04 raspberrypi systemd[1]: Stopping Skygear IoT Client...
-Mar 20 09:56:04 raspberrypi systemd[1]: Starting Skygear IoT Client...
-Mar 20 09:56:04 raspberrypi systemd[1]: Started Skygear IoT Client.
-Mar 20 09:56:10 raspberrypi npm[1524]: ### Skygear IoT Client ###
-Mar 20 09:56:10 raspberrypi npm[1524]: Skygear IoT Version: 2.0.1
-Mar 20 09:56:10 raspberrypi npm[1524]: Device ID: BCM2709-a22082-00000000cda1d830-1490003752071
-Mar 20 09:56:10 raspberrypi npm[1524]: Skygear Endpoint: https://xxxxx.skygeario.com/
-Mar 20 09:56:10 raspberrypi npm[1524]: Initializing...
-Mar 20 09:56:12 raspberrypi npm[1524]: Done!
-Mar 20 09:56:12 raspberrypi npm[1524]: Loading User Application...
-Mar 20 09:56:12 raspberrypi npm[1524]: { Error: Cannot find module '../user-app/package.json'
-Mar 20 09:56:12 raspberrypi npm[1524]: at Function.Module._resolveFilename (module.js:470:15)
-Mar 20 09:56:12 raspberrypi npm[1524]: at Function.Module._load (module.js:418:25)
-Mar 20 09:56:12 raspberrypi npm[1524]: at Module.require (module.js:498:17)
-Mar 20 09:56:12 raspberrypi npm[1524]: at require (internal/module.js:20:19)
-Mar 20 09:56:12 raspberrypi npm[1524]: at main (/home/pi/skygear-iot/index.js:83:23)
-Mar 20 09:56:12 raspberrypi npm[1524]: at process._tickCallback (internal/process/next_tick.js:109:7) code: 'MODULE_NOT_FOUND' }
-Mar 20 09:56:12 raspberrypi npm[1524]: Falling back to default application...
-Mar 20 09:56:12 raspberrypi npm[1524]: Listening for ping events...
-
+...
 ```
 
-The Skygear IoT client will first run an initial setup to generate a device ID and register
-this device on the server. After that, it will restart and try to run the user application
-normally. In this case, it will fail (because it doesn't exist) and run the built-in demo
-ping-pong demo app instead.
+The Skygear IoT launcher will run an initial setup to generate a device ID and register
+this device on the server then load the built-in app (version 0.0.0) which will listen for
+`ping` events and respond with a `pong` event with the device's ID.
 
-When the demo ping-pong app is running, you should be able to test it by publishing a
-`ping` event to the skygear server.
-We've written a test program for this, in the `/home/pi/skygear-iot` directory, run
-`npm test` and you should get an output like the following if everything is working correctly.
-
-```
-### Skygear IoT Ping Test ###
-Skygear IoT Version: 2.0.1
-Skygear Endpoint: https://akiroz.skygeario.com/
-Device ID: BCM2709-a22082-00000000cda1d830-1490003752071
-Initializing... 
-Done!
-Sending ping...
-[pong] BCM2709-a22082-00000000cda1d830-1490003752071
-```
-
+**TODO: test the ping-pong app in the skygear portal**
 
 # What's Next?
 
