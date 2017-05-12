@@ -28,11 +28,13 @@ function getDeviceSecret() {
 
 const platform = {
   action: {
-    shutdown() {
+    async shutdown() {
+      await skygearIoT.reportStatus({status: 'offline'});
       cp.execSync('sudo shutdown now');
     },
-    restart() {
-      cp.execSync('sudo restart');
+    async restart() {
+      await skygearIoT.reportStatus({status: 'offline'});
+      cp.execSync('sudo reboot');
     },
   },
   deviceSecret: getDeviceSecret(),
