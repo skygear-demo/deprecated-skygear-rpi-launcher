@@ -79,14 +79,33 @@ application log using `sudo journalctl -u skygear-iot.service` or follow the log
 the `-f` switch.
 
 ```
-...
+May 29 07:07:52 raspberrypi systemd[1]: Starting Skygear IoT Raspberry Pi Launcher...
+May 29 07:07:52 raspberrypi systemd[1]: Started Skygear IoT Raspberry Pi Launcher.
+May 29 07:08:05 raspberrypi npm[778]: ### Skygear IoT RaspberryPi Launcher ###
+May 29 07:08:05 raspberrypi npm[778]: Skygear Endpoint: https://xxxxx.skygeario.com/
+May 29 07:08:05 raspberrypi npm[778]: Initializing...
+May 29 07:08:07 raspberrypi npm[778]: Login failed, trying sign-up ...
+May 29 07:08:08 raspberrypi npm[778]: [Skygear IoT] user does not have role "iot-device", registering device with user...
+May 29 07:08:09 raspberrypi npm[778]: OK!
+May 29 07:08:10 raspberrypi npm[778]: [Skygear IoT] Device initialized.
+May 29 07:08:10 raspberrypi npm[778]: Device ID: 58844921-9184-4833-a3ab-7a6f5e7dabb3
+May 29 07:08:11 raspberrypi npm[778]: Application Version: 0.0.0
+May 29 07:08:11 raspberrypi npm[778]: ### Skygear IoT Ping App ###
+May 29 07:08:11 raspberrypi npm[778]: Listening for ping events...
 ```
 
 The Skygear IoT launcher will run an initial setup to generate a device ID and register
 this device on the server then load the built-in app (version 0.0.0) which will listen for
 `ping` events and respond with a `pong` event with the device's ID.
 
-**TODO: test the ping-pong app in the skygear portal**
+By now you should be able to see your device in your skygear IoT portal:
+
+{Image Here}
+
+You can also test the default ping-pong application by using the pub/sub portal:
+
+{Image Here}
+
 
 # What's Next?
 
