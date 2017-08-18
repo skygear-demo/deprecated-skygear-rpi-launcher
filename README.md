@@ -1,3 +1,7 @@
+# DEPRECATED
+
+The Skygear IoT plugins only works with Skygear v0, but not in latest v1.
+
 # Getting started with Skygear IoT on a RaspberryPi
 
 Get started with Skygear IoT in 3 easy steps!
